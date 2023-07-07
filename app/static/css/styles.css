@@ -76,11 +76,14 @@ nav li a:hover {
     color: white;
   }
 
-.form-container {
-    width: 50%;
-    margin: 0 auto;
-    background-color: antiquewhite;
-    box-shadow: 10px 10px 10px 10px 10px 10px #444444;
-    display: flex;
-    justify-content: center;
+a {
+    text-decoration: none;
+}
+
+.fa-pencil {
+    color: green;
+}
+
+.fa-trash {
+    color: red;
 }
