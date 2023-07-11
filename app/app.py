@@ -2,34 +2,18 @@ from flask import (Flask, render_template, request,
                    redirect, url_for, flash)
 
 # Imports from DB
-from db.categories import Category
+from models.categories import Category
 
 # Imports from Forms
 from forms.category_forms import CreateCategory
 
+# Imports from Views
+from views.home_views import home_views
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'My Secret Key'
 
-@app.route("/")
-@app.route("/home/")
-def home():
-    return render_template('home.html')
-
-@app.route("/contact/")
-def contact():
-    return render_template('contact.html')
-
-@app.route("/saludo/<name>/")
-def saludo(name):
-    user = 'admin'
-    return render_template('saludo.html', 
-                           name=name, 
-                           user=user)
-
-@app.route("/drinks/")
-def drinks():
-    drinks = ["agua", "jugo", "tequila", "pulque", "azulito", "chela"]
-    return render_template('drinks.html', drinks=drinks)
+app.register_blueprint(home_views)
 
 @app.route('/categories/')
 def categories():
