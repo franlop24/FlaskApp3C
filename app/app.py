@@ -1,50 +1,16 @@
-from flask import (Flask, render_template, request,
-                   redirect, url_for, flash)
-
-# Imports from DB
-from models.categories import Category
-
-# Imports from Forms
-from forms.category_forms import CreateCategory
+from flask import Flask
 
 # Imports from Views
 from views.home_views import home_views
+from views.category_views import category_views
+from views.error_views import error_views
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'My Secret Key'
 
 app.register_blueprint(home_views)
-
-@app.route('/categories/')
-def categories():
-    cats = Category.get_all()
-    return render_template('categories.html',
-                           cats=cats)
-
-@app.route('/categories/create/', methods=('GET', 'POST'))
-def create_cat():
-    form = CreateCategory()
-    if form.validate_on_submit():
-        category = form.category.data
-        description = form.description.data
-        cat = Category(category, description)
-        cat.save()
-        return redirect(url_for('categories'))
-    return render_template('create_cat.html', form=form)
-
-@app.route('/categories/<int:id>/update/')
-def update_cat(id):
-    return f"Vamos a editar con id { id }"
-
-@app.route('/categories/<int:id>/delete/')
-def delete_cat(id):
-    cat = Category.get(id)
-    cat.delete()
-    return redirect(url_for('categories'))
-
-@app.errorhandler(404)
-def page_not_found(error):
-    return render_template('404.html')
+app.register_blueprint(category_views)
+app.register_blueprint(error_views)
 
 if __name__ == '__main__':
     app.run(debug=True)

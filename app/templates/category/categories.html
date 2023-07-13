@@ -5,7 +5,7 @@ Categorias
 {% endblock %}
 
 {% block content %}
-<a href="{{ url_for('create_cat') }}" class="btn">Nueva Categoría</a>
+<a href="{{ url_for('category.create_cat') }}" class="btn">Nueva Categoría</a>
 <br>
 <table id="categories">
     <thead>
@@ -23,10 +23,10 @@ Categorias
             <td>{{ cat.category }}</td>
             <td>{{ cat.description }}</td>
             <td>
-                <a href="{{ url_for('update_cat', id=cat.id) }}">
+                <a href="{{ url_for('category.update_cat', id=cat.id) }}">
                     <i class="fa fa-pencil"></i>
                 </a> --
-                <a href="{{ url_for('delete_cat', id=cat.id) }}">
+                <a href="{{ url_for('category.delete_cat', id=cat.id) }}">
                     <i class="fa fa-trash"></i>
                 </a>
             </td>
